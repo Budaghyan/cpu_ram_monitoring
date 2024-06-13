@@ -5,19 +5,33 @@ This project demonstrates a simple system to monitor CPU and RAM usage, send the
 ## Project Structure
 
 project/
+
 │
+
 ├── docker-compose.yml
+
 ├── cpu_ram_monitor/
+
 │               ├── Dockerfile
+
 │               └── monitor.py
+
 │
+
 ├── rabbitmq/
+
 │               ├── Dockerfile
+
 │
+
 └── flask_ui/
+
                 ├── Dockerfile
+
                 ├── app.py
+
         └── templates/
+
                     └── index.html
 
 
