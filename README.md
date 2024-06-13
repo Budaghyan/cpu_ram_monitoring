@@ -9,18 +9,30 @@ project/
 │
 
 ├── docker-compose.yml
+
 ├── cpu_ram_monitor/
-│   ├── Dockerfile
-│   └── monitor.py
+
+│       ├── Dockerfile
+
+│       └── monitor.py
+
 │
+
 ├── rabbitmq/
-│   ├── Dockerfile
+
+│       ├── Dockerfile
+
 │
+
 └── flask_ui/
-    ├── Dockerfile
-    ├── app.py
-    └── templates/
-        └── index.html
+
+        ├── Dockerfile
+
+        ├── app.py
+
+        └── templates/
+
+            └── index.html
 
 
 ## Services
