@@ -12,27 +12,27 @@ project/
 
 ├── cpu_ram_monitor/
 
-│               ├── Dockerfile
+│       ├── Dockerfile
 
-│               └── monitor.py
+│       └── monitor.py
 
 │
 
 ├── rabbitmq/
 
-│               ├── Dockerfile
+│       ├── Dockerfile
 
 │
 
 └── flask_ui/
 
-                ├── Dockerfile
+        ├── Dockerfile
 
-                ├── app.py
+        ├── app.py
 
         └── templates/
 
-                    └── index.html
+            └── index.html
 
 
 ## Services
