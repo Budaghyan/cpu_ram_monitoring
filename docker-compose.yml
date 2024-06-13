@@ -1,0 +1,30 @@
+version: '3'
+services:
+  cpu_ram_monitor:
+    build: ./cpu_ram_monitor
+    container_name: cpu_ram_monitor
+    depends_on:
+      - rabbitmq
+    networks:
+      - my_network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - my_network
+
+  flask_ui:
+    build: ./flask_ui
+    container_name: flask_ui
+    ports:
+      - "5000:5000"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
