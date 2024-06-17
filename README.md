@@ -46,7 +46,7 @@ project/
 1. Make sure you have Docker and Docker Compose installed.
 2. Clone this repository:
    ## bash
-   git clone https://github.com/YOUR_USERNAME/cpu_ram_monitoring.git
+   git clone https://github.com/Budaghyan/cpu_ram_monitoring.git
 
    cd cpu_ram_monitoring
 
