@@ -1,0 +1,68 @@
+stages:
+  - lint
+  - test
+  - build
+  - deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+# Stage: Lint
+lint:
+  stage: lint
+  script:
+    - docker build -t cpu_ram_monitor ./cpu_ram_monitor
+    - docker run --rm cpu_ram_monitor flake8 .
+    - docker build -t flask_ui ./flask_ui
+    - docker run --rm flask_ui flake8 .
+  only:
+    - main
+
+# Stage: Test
+test_cpu_ram_monitor:
+  stage: test
+  script:
+    - docker build -t cpu_ram_monitor ./cpu_ram_monitor
+    - docker run --rm cpu_ram_monitor coverage run -m pytest test_monitor.py
+    - docker run --rm cpu_ram_monitor coverage report
+  only:
+    - main
+
+test_flask_ui:
+  stage: test
+  script:
+    - docker build -t flask_ui ./flask_ui
+    - docker run --rm flask_ui coverage run -m pytest test_app.py
+    - docker run --rm flask_ui coverage report
+  only:
+    - main
+
+# Stage: Build
+build_cpu_ram_monitor:
+  stage: build
+  script:
+    - docker build -t cpu_ram_monitor ./cpu_ram_monitor
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker tag cpu_ram_monitor $DOCKER_USERNAME/cpu_ram_monitor
+    - docker push $DOCKER_USERNAME/cpu_ram_monitor
+  only:
+    - main
+
+build_flask_ui:
+  stage: build
+  script:
+    - docker build -t flask_ui ./flask_ui
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker tag flask_ui $DOCKER_USERNAME/flask_ui
+    - docker push $DOCKER_USERNAME/flask_ui
+  only:
+    - main
+
+# Stage: Deploy
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f k8s/deployment.yaml
+    - kubectl apply -f k8s/service.yaml
+  only:
+    - main

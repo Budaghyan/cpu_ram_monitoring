@@ -1,8 +1,13 @@
 FROM python:3.8-slim
 
-RUN pip install pika psutil
+# Install dependencies
+RUN pip install pika psutil flake8 pytest coverage
 
+# Set the working directory
 WORKDIR /app
-COPY monitor.py .
 
+# Copy the current directory contents into the container
+COPY . .
+
+# Run monitor.py
 CMD ["python", "monitor.py"]

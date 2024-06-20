@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpu-ram-monitor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cpu-ram-monitor
+  template:
+    metadata:
+      labels:
+        app: cpu-ram-monitor
+    spec:
+      containers:
+      - name: cpu-ram-monitor
+        image: edbudaghyan/cpu_ram_monitor:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-ui
+  template:
+    metadata:
+      labels:
+        app: flask-ui
+    spec:
+      containers:
+      - name: flask-ui
+        image: edbudaghyan/flask_ui:latest
+        ports:
+        - containerPort: 5000
